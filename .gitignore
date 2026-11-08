@@ -1,0 +1,9 @@
+# Ignorar configuraciones de Visual Studio Code
+.vscode/
+
+# Ignorar archivos ejecutables compilados de C
+*.exe
+*.out
+
+# Ignorar los archivos de datos (si no quieres que choquen con los de tu equipo)
+*.dat
