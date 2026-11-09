@@ -6,4 +6,5 @@
 *.out
 
 # Ignorar los archivos de datos (si no quieres que choquen con los de tu equipo)
-*.dat
+*.datBiblioteca
+*.exe
