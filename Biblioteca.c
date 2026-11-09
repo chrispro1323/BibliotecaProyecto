@@ -370,9 +370,8 @@ void RegistroUsu()
     listaUsuarios[totalUsuarios].prestamosActivos = 0;
     totalUsuarios++;
 
-    sprintf(comando, "qrencode -o qrcodes/usuario_%d.png \"%d\"", Matricula, Matricula);
-    system(comando);
-
+   sprintf(comando, "qrencode -o ..\\qrcodes\\usuario_%d.png \"%d\"", Matricula, Matricula);
+system(comando);
 
     printf("-----------------------------------------------------------------\n");
     printf("|Usuario creado con exito.                                      |\n");
