@@ -7,28 +7,29 @@
 #define TAM 100
 
 // Variables para la simulación (Administración Usuarios)
-typedef struct {
+typedef struct
+{
     int matricula;
     char nombre[50];
     int prestamosActivos;
-}usuario;
+} usuario;
 
 usuario listaUsuarios[TAM];
 int totalUsuarios = 0;
 char ConfirmarUsuario[50];
 
-
 // Variables para la simulación (Administración Libros)
 
-typedef struct {
+typedef struct
+{
     int id;
     char titulo[100];
     char autor[100];
     char categoria[40];
     int disponible;
     int numeroPrestamosHistoricos;
-    
-}libro;
+
+} libro;
 
 libro listaLibros[TAM];
 int totalLibros = 0;
@@ -36,8 +37,6 @@ int contCategoria[11] = {0};
 int BuscarID;
 int IDRep, EncontrarLibro;
 char confirmarLIbro[50];
-
-
 
 // Menús Principales
 void UsuariosMenu();
@@ -348,8 +347,8 @@ void RegistroUsu()
         }
     } while (!((Matricula <= 999999999 && Matricula >= 100000000) && !matricularep));
 
-    listaUsuarios[totalUsuarios].matricula = Matricula ;
-    strcpy(listaUsuarios[totalUsuarios].nombre,UsuarioNuevo);
+    listaUsuarios[totalUsuarios].matricula = Matricula;
+    strcpy(listaUsuarios[totalUsuarios].nombre, UsuarioNuevo);
     listaUsuarios[totalUsuarios].prestamosActivos = 0;
     totalUsuarios++;
     printf("-----------------------------------------------------------------\n");
@@ -441,8 +440,8 @@ void BuscarUsu()
                 printf("-----------------------------------------------------------------\n");
                 printf("|            Matricula           |           Usuario            |\n");
                 printf("-----------------------------------------------------------------\n");
-                printf("|            %-9d           :           %-8s           |\n", 
-                    listaUsuarios[x].matricula, listaUsuarios[x].nombre);
+                printf("|            %-9d           :           %-8s           |\n",
+                       listaUsuarios[x].matricula, listaUsuarios[x].nombre);
                 printf("-----------------------------------------------------------------\n");
                 Matriculaencontrada = Verdadero;
             }
@@ -472,8 +471,8 @@ void ConsultarUsuRegistrados()
         printf("-----------------------------------------------------------------\n");
         for (x = 0; x < totalUsuarios; x++)
         {
-            printf("|            %-9d           :           %-8s           |\n", 
-                listaUsuarios[x].matricula, listaUsuarios[x].nombre);
+            printf("|            %-9d           :           %-8s           |\n",
+                   listaUsuarios[x].matricula, listaUsuarios[x].nombre);
         }
         printf("-----------------------------------------------------------------\n");
     }
@@ -508,12 +507,12 @@ void EliminarUsu()
                 printf("-----------------------------------------------------------------\n");
                 printf("|            Matricula           |           Usuario            |\n");
                 printf("-----------------------------------------------------------------\n");
-                printf("|            %-9d           :           %-8s           |\n", 
-                    listaUsuarios[x].matricula, listaUsuarios[x].nombre);
+                printf("|            %-9d           :           %-8s           |\n",
+                       listaUsuarios[x].matricula, listaUsuarios[x].nombre);
                 printf("-----------------------------------------------------------------\n");
                 printf("¿Estas seguro de eliminar el usuario? Si/No\n");
                 scanf("%49s", ConfirmarUsuario);
-                
+
                 for (i = 0; ConfirmarUsuario[i] != '\0'; i++)
                 {
                     ConfirmarUsuario[i] = tolower((unsigned char)ConfirmarUsuario[i]);
@@ -522,7 +521,7 @@ void EliminarUsu()
                 {
                     for (j = x; j < totalUsuarios - 1; j++)
                     {
-                       listaUsuarios[j] = listaUsuarios[j + 1];
+                        listaUsuarios[j] = listaUsuarios[j + 1];
                     }
                     totalUsuarios--;
                     printf("-----------------------------------------------------------------\n");
@@ -582,14 +581,30 @@ void RegistrarLibros()
 
     switch (opCategoria)
     {
-    case 1: strcpy(CategoriaLibro, "Medicina y Salud"); break;
-    case 2: strcpy(CategoriaLibro, "Derecho y Ciencias Sociales"); break;
-    case 3: strcpy(CategoriaLibro, "Contaduria y Administracion"); break;
-    case 4: strcpy(CategoriaLibro, "Ingenieria y Sistemas"); break;
-    case 5: strcpy(CategoriaLibro, "Humanidades y Pedagogia"); break;
-    case 6: strcpy(CategoriaLibro, "Ciencias Agropecuarias"); break;
-    case 7: strcpy(CategoriaLibro, "Literatura y Ficcion"); break;
-    case 8: strcpy(CategoriaLibro, "Historia, Arte y Chiapas"); break;
+    case 1:
+        strcpy(CategoriaLibro, "Medicina y Salud");
+        break;
+    case 2:
+        strcpy(CategoriaLibro, "Derecho y Ciencias Sociales");
+        break;
+    case 3:
+        strcpy(CategoriaLibro, "Contaduria y Administracion");
+        break;
+    case 4:
+        strcpy(CategoriaLibro, "Ingenieria y Sistemas");
+        break;
+    case 5:
+        strcpy(CategoriaLibro, "Humanidades y Pedagogia");
+        break;
+    case 6:
+        strcpy(CategoriaLibro, "Ciencias Agropecuarias");
+        break;
+    case 7:
+        strcpy(CategoriaLibro, "Literatura y Ficcion");
+        break;
+    case 8:
+        strcpy(CategoriaLibro, "Historia, Arte y Chiapas");
+        break;
     }
 
     do
@@ -625,7 +640,7 @@ void RegistrarLibros()
     printf("-----------------------------------------------------------------\n");
     printf("|          Numero Copias          |             Id              |\n");
     printf("-----------------------------------------------------------------\n");
-    
+
     for (x = 0; x < CantCopias; x++)
     {
         contCategoria[opCategoria]++;
@@ -637,7 +652,7 @@ void RegistrarLibros()
         strcpy(listaLibros[totalLibros].categoria, CategoriaLibro);
         listaLibros[totalLibros].disponible = Verdadero;
         listaLibros[totalLibros].numeroPrestamosHistoricos = 0;
-        
+
         printf("|                %d                |             %d              |\n", x + 1, LibrosID);
         totalLibros++;
     }
@@ -648,19 +663,19 @@ void RegistrarLibros()
 
 void ModificarLibros()
 {
- char nombreTitulo[50];
- int Opbuscar,opModificar,opCategoria,IDLibro,indiceLIbro = -1;
- char nuevoTitulo[50];
- char nuevoAutor[50];
- char nuevaCategoria[50];
- 
- if (totalLibros == 0)
- {
-    printf("-----------------------------------------------------------------\n");
-    printf("|                    NO HAY LIBROS REGISTRADOS                   |\n");
-    printf("-----------------------------------------------------------------\n");
- return;
- }
+    char nombreTitulo[50];
+    int Opbuscar, opModificar, opCategoria, IDLibro, indiceLIbro = -1;
+    char nuevoTitulo[50];
+    char nuevoAutor[50];
+    char nuevaCategoria[50];
+    int modificado = Falso;
+    if (totalLibros == 0)
+    {
+        printf("-----------------------------------------------------------------\n");
+        printf("|                    NO HAY LIBROS REGISTRADOS                   |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
 
     printf("-----------------------------------------------------------------\n");
     printf("|                    Administracion de Libros                   |\n");
@@ -669,12 +684,12 @@ void ModificarLibros()
     printf("|Para poder modificar un libro buscalo mediante su titulo       |\n");
     printf("-----------------------------------------------------------------\n");
     printf("Ingresa el titulo: ");
-    scanf("%s",nombreTitulo);
+    scanf("%99[^\n]", nombreTitulo);
     printf("\n");
-        
+
     for (int i = 0; i < totalLibros; i++)
     {
-        if (strcmp(listaLibros[i].titulo,nombreTitulo) == 0)
+        if (strcmp(listaLibros[i].titulo, nombreTitulo) == 0)
         {
             indiceLIbro = i;
             break;
@@ -683,56 +698,363 @@ void ModificarLibros()
 
     if (indiceLIbro == -1)
     {
-        printf("EL libro no existe en el sistema\n");  
+        printf("EL libro no existe en el sistema\n");
         return;
-        
     }
 
-         printf("-----------------------------------------------------------------\n");
-        printf("|Libro encontrado                                               |\n");
-        printf("-----------------------------------------------------------------\n");
-        printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
-        printf("-----------------------------------------------------------------\n");
-        printf("|        %d          :          %s                :         %s               :               %s               |\n", 
-        listaLibros[indiceLIbro].id,listaLibros[indiceLIbro].autor,listaLibros[indiceLIbro].titulo,listaLibros[indiceLIbro].categoria);
-        printf("-----------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("|Libro encontrado                                               |\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("|        %d          :          %s                :         %s               :               %s               |\n",
+           listaLibros[indiceLIbro].id, listaLibros[indiceLIbro].autor, listaLibros[indiceLIbro].titulo, listaLibros[indiceLIbro].categoria);
+    printf("-----------------------------------------------------------------\n");
 
     do
     {
-     printf("¿Que deseas modificar? \n[1]Titulo\n[2]Autor\n[3]Categoria\n[4]Salir\n");
-     scanf("%d",&opModificar);
-     switch (opModificar)
+        printf("¿Que deseas modificar? \n[1]Titulo\n[2]Autor\n[3]Categoria\n[4]Salir\n");
+        scanf("%d", &opModificar);
+        switch (opModificar)
+        {
+        case 1:
+            printf("Ingresa el nuevo titulo\n");
+            scanf("%99[^\n]", nuevoTitulo);
+
+            for (int i = 0; i < totalLibros; i++)
+            {
+                if (strcmp(listaLibros[i].titulo, nombreTitulo) == 0)
+                {
+                    strcpy(listaLibros[i].titulo, nuevoTitulo);
+                    modificado = Verdadero;
+                }
+            }
+            if (modificado)
+            {
+                strcpy(nombreTitulo, nuevoTitulo);
+            }
+            printf("Titulo actualizado con exito\n");
+            return;
+        case 2:
+            printf("Ingresa el nombre del autor\n");
+            scanf("%99[^\n]", nuevoAutor);
+            for (int i = 0; i < totalLibros; i++)
+            {
+                if (strcmp(listaLibros[i].titulo, nombreTitulo) == 0)
+                {
+                    strcpy(listaLibros[i].autor, nuevoAutor);
+                }
+            }
+            printf("Autor actualizado con exito\n");
+            return;
+
+        case 3:
+            do
+            {
+                printf(">Ingresa la categoria\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("| CATEGORIAS:                                                   |\n");
+                printf("|        1.- Medicina y Salud                                   |\n");
+                printf("|        2.- Derecho y Ciencias Sociales                        |\n");
+                printf("|        3.- Contaduria y Administracion                        |\n");
+                printf("|        4.- Ingenieria y Sistemas                              |\n");
+                printf("|        5.- Humanidades y Pedagogia                            |\n");
+                printf("|        6.- Ciencias Agropecuarias                             |\n");
+                printf("|        7.- Literatura y Ficcion                               |\n");
+                printf("|        8.- Historia, Arte y Chiapas                           |\n");
+                printf("-----------------------------------------------------------------\n");
+                scanf("%d", &opCategoria);
+                if (opCategoria < 1 || opCategoria > 8)
+                {
+                    printf("Esa opción no esta dentro de los parametros\n");
+                }
+            } while (!(opCategoria >= 1 && opCategoria <= 8));
+
+            switch (opCategoria)
+            {
+            case 1:
+                strcpy(nuevaCategoria, "Medicina y Salud");
+                break;
+            case 2:
+                strcpy(nuevaCategoria, "Derecho y Ciencias Sociales");
+                break;
+            case 3:
+                strcpy(nuevaCategoria, "Contaduria y Administracion");
+                break;
+            case 4:
+                strcpy(nuevaCategoria, "Ingenieria y Sistemas");
+                break;
+            case 5:
+                strcpy(nuevaCategoria, "Humanidades y Pedagogia");
+                break;
+            case 6:
+                strcpy(nuevaCategoria, "Ciencias Agropecuarias");
+                break;
+            case 7:
+                strcpy(nuevaCategoria, "Literatura y Ficcion");
+                break;
+            case 8:
+                strcpy(nuevaCategoria, "Historia, Arte y Chiapas");
+                break;
+            }
+
+            for (int i = 0; i < totalLibros; i++)
+            {
+                if (strcmp(listaLibros[i].titulo, nombreTitulo) == 0)
+                {
+                    strcpy(listaLibros[i].categoria, nuevaCategoria);
+                }
+            }
+            printf("La categoria actualizada en todas las copias\n");
+            return;
+        case 4:
+            printf("Saliendo...\n");
+
+            break;
+
+        default:
+            printf("Esta opcion no existe\n");
+
+            break;
+        }
+
+    } while (opModificar != 4);
+}
+
+void EliminarLibros()
+{
+
+    int IDLibro, libroExiste = Falso;
+    char tituloLibro[50];
+    char confirmarLIbro[40];
+    int indiceENcontrado = -1;
+
+    printf("-----------------------------------------------------------------\n");
+    printf("|                    Administracion de Libros                   |\n");
+    printf("|                                      > Eliminar Libros        |\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("|Aqui podras eliminar a un libro mediante su titulo                 |\n");
+    printf("-----------------------------------------------------------------\n");
+    if (totalLibros == 0)
+    {
+        printf("|            NO SE ENCUENTRAN LIBROS DISPONIBLES              |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
+    printf("Ingresa su titulo: ");
+    scanf("%s", tituloLibro);
+    printf("\n");
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+        if (strcmp(listaLibros[i].titulo, tituloLibro) == 0)
+        {
+            libroExiste = Verdadero;
+            indiceENcontrado = i;
+            printf("-----------------------------------------------------------------\n");
+            printf("|Libro encontrado                                               |\n");
+            printf("-----------------------------------------------------------------\n");
+            printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
+            printf("-----------------------------------------------------------------\n");
+            printf("|         %d          :         %s                :          %s               :          %s               |\n",
+                   listaLibros[i].id, listaLibros[i].autor, listaLibros[i].titulo, listaLibros[i].categoria);
+            printf("-----------------------------------------------------------------\n");
+            break;
+        }
+    }
+
+    if (libroExiste)
+    {
+        printf("¿Estas seguro de eliminar el libro? si/no\n");
+        scanf("%49s", confirmarLIbro);
+
+        for (int i = 0; confirmarLIbro[i] != '\0'; i++)
+        {
+            confirmarLIbro[i] = tolower((unsigned char)confirmarLIbro[i]);
+        }
+
+        if (strcmp(confirmarLIbro, "si") == 0)
+        {
+            int i = 0;
+            while (i < totalLibros)
+            {
+                if (strcmp(listaLibros[i].titulo, tituloLibro) == 0)
+                {
+                    for (int j = i; j < totalLibros - 1; j++)
+                    {
+                        listaLibros[j] = listaLibros[j + 1];
+                    }
+                    totalLibros--;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            printf("-----------------------------------------------------------------\n");
+            printf("|Todas las copias del libro fueron eliminadas con exito.       |\n");
+            printf("-----------------------------------------------------------------\n");
+        }
+        else
+        {
+            printf("-----------------------------------------------------------------\n");
+            printf("|Eliminacion cancelada.                                         |\n");
+            printf("-----------------------------------------------------------------\n");
+        }
+    }
+    else
+    {
+
+        printf("-----------------------------------------------------------------\n");
+        printf("|No se encontro ningun libro con ese titulo.                     |\n");
+        printf("-----------------------------------------------------------------\n");
+    }
+}
+
+void BuscarLibros()
+{
+    int opBuscar, IDLibro, libroExiste = Falso;
+    char libroTitulo[50];
+
+    printf("-----------------------------------------------------------------\n");
+    printf("|                    Administracion de Libros                   |\n");
+    printf("|                                        > Buscar Libros        |\n");
+    printf("-----------------------------------------------------------------\n");
+    if (totalLibros == 0)
+    {
+        printf("|               NO EXISTEN LIBROS                               |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
+    printf("¿Como deseas buscar el libro? [1]ID [2]Titulo\nElige: ");
+    scanf("%d", &opBuscar);
+    printf("\n");
+
+    switch (opBuscar)
     {
     case 1:
-        printf("Ingresa el nuevo titulo\n");
-        scanf("%s",nuevoTitulo);
+        printf("Ingresa el ID: ");
+        scanf("%d", &IDLibro);
+        printf("\n");
 
         for (int i = 0; i < totalLibros; i++)
         {
-            if (strcmp(listaLibros[i].titulo,nombreTitulo) == 0)
+            if (listaLibros[i].id == IDLibro)
             {
-              strcpy(listaLibros[i].titulo,nuevoTitulo);
+                libroExiste = Verdadero;
+                printf("-----------------------------------------------------------------\n");
+                printf("|Libro encontrado                                               |\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("|       %d         :          %s             :           %s             :          %s           |\n",
+                       listaLibros[i].id, listaLibros[i].autor, listaLibros[i].titulo, listaLibros[i].categoria);
+                printf("-----------------------------------------------------------------\n");
+                break;
             }
         }
-        printf("Titulo actualizado con exito\n");
-        return;
+        if (!libroExiste)
+        {
+            printf("-----------------------------------------------------------------\n");
+            printf("|               No se encontro ningun libro                        |\n");
+            printf("-----------------------------------------------------------------\n");
+        }
+        break;
     case 2:
-        printf("Ingresa el nombre del autor\n");
-        scanf("%s",nuevoAutor);
+        printf("Ingresa el titulo del libro\n");
+        scanf("%s", libroTitulo);
+
         for (int i = 0; i < totalLibros; i++)
         {
-        if (strcmp(listaLibros[i].titulo,nombreTitulo) == 0)
+            if (strcmp(listaLibros[i].titulo, libroTitulo) == 0)
+            {
+                libroExiste = Verdadero;
+                printf("-----------------------------------------------------------------\n");
+                printf("|Libro encontrado                                               |\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("|            %d          :           %s                :              %s               :                  %s               |\n",
+                       listaLibros[i].id, listaLibros[i].autor, listaLibros[i].titulo, listaLibros[i].categoria);
+                printf("-----------------------------------------------------------------\n");
+                break;
+            }
+        }
+        if (!libroExiste)
         {
-            strcpy(listaLibros[i].autor,nuevoAutor);
+            printf("-----------------------------------------------------------------\n");
+            printf("|               No se encontro ningun libro                        |\n");
+            printf("-----------------------------------------------------------------\n");
         }
-        }
-        printf("Autor actualizado con exito\n");
-    return;
+        break;
+    default:
+        printf("Opcion invalida\n");
+        break;
+    }
+}
 
-    case 3:
-   do
+void ConsultarDisponibilidad()
+{
+    char tituloLibro[50];
+    int copiasTotales = 0, copiasDisponibles = 0, indiceLibro;
+
+    printf("-----------------------------------------------------------------\n");
+    printf("|                    Administracion de Libros                   |\n");
+    printf("|                                     > Consultar Disponibilidad|\n");
+    printf("-----------------------------------------------------------------\n");
+    if (totalLibros == 0)
     {
-        printf(">Ingresa la categoria\n");
+        printf("|                       NO EXISTE NINGUN LIBRO                   |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
+    printf("Ingresa el titulo del libro para consultar su disponibilidad: \n");
+    scanf("%s", tituloLibro);
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+        if (strcmp(listaLibros[i].titulo, tituloLibro) == 0)
+        {
+            indiceLibro = i;
+            copiasTotales++;
+            if (listaLibros[i].disponible == Verdadero)
+            {
+                copiasDisponibles++;
+            }
+        }
+    }
+
+    if (copiasTotales == 0)
+    {
+        printf("-----------------------------------------------------------------\n");
+        printf("|                     No existe el libro                        |\n");
+        printf("-----------------------------------------------------------------\n");
+    }
+    else if (copiasTotales > 0)
+    {
+        printf("-----------------------------------------------------------------\n");
+        printf("|Libro encontrado                                               |\n");
+        printf("-----------------------------------------------------------------\n");
+        printf("|           Autor            |              Titulo           |             Categoria             |          Disponibilidad           |\n");
+        printf("-----------------------------------------------------------------\n");
+        printf("|      %s                :              %s               :         %s          :           %d copias        |\n",
+               listaLibros[indiceLibro].autor, listaLibros[indiceLibro].titulo, listaLibros[indiceLibro].categoria, copiasDisponibles);
+        printf("-----------------------------------------------------------------\n");
+    }
+}
+
+void ClasificarCategoria()
+{
+    int opCategoria, NoExistenLibros = Falso;
+    char categoriaBuscada[50];
+    printf("-----------------------------------------------------------------\n");
+    printf("|                    Administracion de Libros                   |\n");
+    printf("|                                  > Clasificar por Categoria   |\n");
+    printf("-----------------------------------------------------------------\n");
+    do
+    {
+        printf(">Que categoria es el libro\n");
         printf("-----------------------------------------------------------------\n");
         printf("| CATEGORIAS:                                                   |\n");
         printf("|        1.- Medicina y Salud                                   |\n");
@@ -753,334 +1075,54 @@ void ModificarLibros()
 
     switch (opCategoria)
     {
-    case 1: strcpy(nuevaCategoria, "Medicina y Salud"); break;
-    case 2: strcpy(nuevaCategoria, "Derecho y Ciencias Sociales"); break;
-    case 3: strcpy(nuevaCategoria, "Contaduria y Administracion"); break;
-    case 4: strcpy(nuevaCategoria, "Ingenieria y Sistemas"); break;
-    case 5: strcpy(nuevaCategoria, "Humanidades y Pedagogia"); break;
-    case 6: strcpy(nuevaCategoria, "Ciencias Agropecuarias"); break;
-    case 7: strcpy(nuevaCategoria, "Literatura y Ficcion"); break;
-    case 8: strcpy(nuevaCategoria, "Historia, Arte y Chiapas"); break;
-    }
-
-    for (int i = 0; i < totalLibros; i++)
-    {
-        if (strcmp(listaLibros[i].titulo,nombreTitulo) == 0)
-        {
-            strcpy(listaLibros[i].categoria,nuevaCategoria);
-        }
-    }
-    printf("La categoria actualizada en todas las copias\n");
-    return;
-    case 4:
-        printf("Saliendo...\n");
-        
-    break;
-
-    default:printf("Esta opcion no existe\n");
-    
-        break;
-    }
-
-        
- } while (opModificar != 4);
-}
-
-void EliminarLibros()
-{
-        
-    int IDLibro, libroExiste = Falso;
-    char tituloLibro[50];
-    char confirmarLIbro[40];
-    int indiceENcontrado = -1;
-
-
-    printf("-----------------------------------------------------------------\n");
-    printf("|                    Administracion de Libros                   |\n");
-    printf("|                                      > Eliminar Libros        |\n");
-    printf("-----------------------------------------------------------------\n");
-    printf("|Aqui podras eliminar a un libro mediante su titulo                 |\n");
-    printf("-----------------------------------------------------------------\n");
-    if (totalLibros == 0)
-    {
-      printf("|            NO SE ENCUENTRAN LIBROS DISPONIBLES              |\n");
-      printf("-----------------------------------------------------------------\n");
-      return;
-    }
-    printf("Ingresa su titulo: ");
-    scanf("%s",tituloLibro);
-    printf("\n");
-
-    for (int i = 0; i < totalLibros; i++)
-    {
-        if (strcmp(listaLibros[i].titulo,tituloLibro) == 0)
-        {
-            libroExiste = Verdadero;
-            indiceENcontrado = i;
-            printf("-----------------------------------------------------------------\n");
-            printf("|Libro encontrado                                               |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|         %d          :         %s                :          %s               :          %s               |\n", 
-            listaLibros[i].id,listaLibros[i].autor,listaLibros[i].titulo,listaLibros[i].categoria);
-            printf("-----------------------------------------------------------------\n");
-            break;   
-        }
-    }
-
-    if (libroExiste)
-    {
-        printf("¿Estas seguro de eliminar el libro? si/no\n");
-        scanf("%49s", confirmarLIbro);
-
-        for (int i = 0; confirmarLIbro[i] != '\0'; i++)
-        {
-           confirmarLIbro[i] = tolower((unsigned char)confirmarLIbro[i]);
-        }
-
-        
-        if (strcmp(confirmarLIbro, "si") == 0)
-        {
-            int i = 0;
-            while (i < totalLibros)
-            {
-                if (strcmp(listaLibros[i].titulo,tituloLibro) == 0)
-                {
-                    for (int j = i; j < totalLibros - 1; j++)
-                    {
-                       listaLibros[j] = listaLibros[j + 1];
-                    }
-                    totalLibros--;
-                }else{
-                    i++;
-                }
-                
-                
-            }
-            
-  
-            printf("-----------------------------------------------------------------\n");
-            printf("|Todas las copias del libro fueron eliminadas con exito.       |\n");
-            printf("-----------------------------------------------------------------\n");
-        }else{
-            printf("-----------------------------------------------------------------\n");
-            printf("|Eliminacion cancelada.                                         |\n");
-            printf("-----------------------------------------------------------------\n");           
-        }
- 
-    }else{
-
-        printf("-----------------------------------------------------------------\n");
-        printf("|No se encontro ningun libro con ese titulo.                     |\n");
-        printf("-----------------------------------------------------------------\n");
-    }    
-
-}
-
-void BuscarLibros()
-{
-    int opBuscar,IDLibro, libroExiste = Falso;
-    char libroTitulo[50];
-
-
-    printf("-----------------------------------------------------------------\n");
-    printf("|                    Administracion de Libros                   |\n");
-    printf("|                                        > Buscar Libros        |\n");
-    printf("-----------------------------------------------------------------\n");
-    if (totalLibros == 0)
-    {
-    printf("|               NO EXISTEN LIBROS                               |\n");
-    printf("-----------------------------------------------------------------\n");
-    return;
-    }
-    printf("¿Como deseas buscar el libro? [1]ID [2]Titulo\nElige: ");
-    scanf("%d",&opBuscar);
-    printf("\n");
-    
-
-    switch (opBuscar)
-    {
     case 1:
-        printf("Ingresa el ID: ");
-        scanf("%d",&IDLibro);
-        printf("\n");
-
-        for (int i = 0; i < totalLibros; i++)
-        {
-            if (listaLibros[i].id == IDLibro)
-            {
-            libroExiste = Verdadero;
-            printf("-----------------------------------------------------------------\n");
-            printf("|Libro encontrado                                               |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|       %d         :          %s             :           %s             :          %s           |\n", 
-                      listaLibros[i].id,listaLibros[i].autor,listaLibros[i].titulo,listaLibros[i].categoria);
-            printf("-----------------------------------------------------------------\n");
-            break;
-            }
-        
-        }
-        if (!libroExiste)
-        {
-           printf("-----------------------------------------------------------------\n");
-           printf("|               No se encontro ningun libro                        |\n");
-           printf("-----------------------------------------------------------------\n");
-        }
+        strcpy(categoriaBuscada, "Medicina y Salud");
         break;
     case 2:
-        printf("Ingresa el titulo del libro\n");
-        scanf("%s",libroTitulo);
-
-        for (int i = 0; i < totalLibros; i++)
-        {
-            if (strcmp(listaLibros[i].titulo,libroTitulo) == 0)
-            {
-                libroExiste = Verdadero;
-            printf("-----------------------------------------------------------------\n");
-            printf("|Libro encontrado                                               |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|            ID           |           Autor            |              Titulo           |             Categoria             |\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("|            %d          :           %s                :              %s               :                  %s               |\n", 
-                      listaLibros[i].id,listaLibros[i].autor,listaLibros[i].titulo,listaLibros[i].categoria);
-            printf("-----------------------------------------------------------------\n");
-                break;
-            }
-        }
-        if (!libroExiste)
-        {
-           printf("-----------------------------------------------------------------\n");
-           printf("|               No se encontro ningun libro                        |\n");
-           printf("-----------------------------------------------------------------\n");
-        }
-     break;
-    default:printf("Opcion invalida\n");
+        strcpy(categoriaBuscada, "Derecho y Ciencias Sociales");
+        break;
+    case 3:
+        strcpy(categoriaBuscada, "Contaduria y Administracion");
+        break;
+    case 4:
+        strcpy(categoriaBuscada, "Ingenieria y Sistemas");
+        break;
+    case 5:
+        strcpy(categoriaBuscada, "Humanidades y Pedagogia");
+        break;
+    case 6:
+        strcpy(categoriaBuscada, "Ciencias Agropecuarias");
+        break;
+    case 7:
+        strcpy(categoriaBuscada, "Literatura y Ficcion");
+        break;
+    case 8:
+        strcpy(categoriaBuscada, "Historia, Arte y Chiapas");
         break;
     }
-}
-
-void ConsultarDisponibilidad()
-{
-    char tituloLibro[50];
-    int copiasTotales = 0, copiasDisponibles = 0,indiceLibro;
-
     printf("-----------------------------------------------------------------\n");
-    printf("|                    Administracion de Libros                   |\n");
-    printf("|                                     > Consultar Disponibilidad|\n");
+    printf("|Categoria: %s                                                    |\n", categoriaBuscada);
     printf("-----------------------------------------------------------------\n");
-    if (totalLibros == 0)
-    {
-    printf("|                       NO EXISTE NINGUN LIBRO                   |\n");
-    printf("-----------------------------------------------------------------\n");   
-    return;    
-    }
-    printf("Ingresa el titulo del libro para consultar su disponibilidad: \n");
-    scanf("%s",tituloLibro);
+    printf("|            ID           |           Autor            |              Titulo           |\n");
+    printf("---------------------------------------------------------------------------------------\n");
 
     for (int i = 0; i < totalLibros; i++)
     {
-        if (strcmp(listaLibros[i].titulo,tituloLibro) == 0)
+        if (strcmp(listaLibros[i].categoria, categoriaBuscada) == 0)
         {
-            indiceLibro = i;
-            copiasTotales++;
-            if (listaLibros[i].disponible == Verdadero)
-            {
-                copiasDisponibles++;
-            }   
+            NoExistenLibros = Verdadero;
+
+            printf("|            %d          :           %s                :              %s               |\n",
+                   listaLibros[i].id, listaLibros[i].autor, listaLibros[i].titulo);
+            printf("---------------------------------------------------------------------------------------\n");
         }
-        
     }
-
-    if (copiasTotales == 0)
+    if (!NoExistenLibros)
     {
-    printf("-----------------------------------------------------------------\n");
-    printf("|                     No existe el libro                        |\n");
-    printf("-----------------------------------------------------------------\n");
-    }else if (copiasTotales > 0)
-    {
-        printf("-----------------------------------------------------------------\n");
-        printf("|Libro encontrado                                               |\n");
-        printf("-----------------------------------------------------------------\n");
-        printf("|           Autor            |              Titulo           |             Categoria             |          Disponibilidad           |\n");
-        printf("-----------------------------------------------------------------\n");
-        printf("|      %s                :              %s               :         %s          :           %d copias        |\n", 
-         listaLibros[indiceLibro].autor,listaLibros[indiceLibro].titulo,listaLibros[indiceLibro].categoria,copiasDisponibles);
-        printf("-----------------------------------------------------------------\n");
-    }
-}
-
-
-void ClasificarCategoria()
-{
-        int opCategoria,NoExistenLibros = Falso;
-        char categoriaBuscada[50];
-        printf("-----------------------------------------------------------------\n");
-        printf("|                    Administracion de Libros                   |\n");
-        printf("|                                  > Clasificar por Categoria   |\n");
-        printf("-----------------------------------------------------------------\n");
-        do
-        {
-            printf(">Que categoria es el libro\n");
-            printf("-----------------------------------------------------------------\n");
-            printf("| CATEGORIAS:                                                   |\n");
-            printf("|        1.- Medicina y Salud                                   |\n");
-            printf("|        2.- Derecho y Ciencias Sociales                        |\n");
-            printf("|        3.- Contaduria y Administracion                        |\n");
-            printf("|        4.- Ingenieria y Sistemas                              |\n");
-            printf("|        5.- Humanidades y Pedagogia                            |\n");
-            printf("|        6.- Ciencias Agropecuarias                             |\n");
-            printf("|        7.- Literatura y Ficcion                               |\n");
-            printf("|        8.- Historia, Arte y Chiapas                           |\n");
-            printf("-----------------------------------------------------------------\n");
-            scanf("%d", &opCategoria);
-            if (opCategoria < 1 || opCategoria > 8)
-            {
-                printf("Esa opción no esta dentro de los parametros\n");
-            }
-        } while (!(opCategoria >= 1 && opCategoria <= 8));
-
-        switch (opCategoria)
-        {
-        case 1:strcpy(categoriaBuscada,"Medicina y Salud");break;
-        case 2:strcpy(categoriaBuscada,"Derecho y Ciencias Sociales");break;
-        case 3:strcpy(categoriaBuscada,"Contaduria y Administracion");break;
-        case 4:strcpy(categoriaBuscada,"Ingenieria y Sistemas");break;
-        case 5:strcpy(categoriaBuscada,"Humanidades y Pedagogia");break;
-        case 6:strcpy(categoriaBuscada,"Ciencias Agropecuarias");break;
-        case 7:strcpy(categoriaBuscada,"Literatura y Ficcion");break;
-        case 8:strcpy(categoriaBuscada,"Historia, Arte y Chiapas");break;
-        }
-                printf("-----------------------------------------------------------------\n");
-                printf("|Categoria: %s                                                    |\n",categoriaBuscada);
-                printf("-----------------------------------------------------------------\n");
-                printf("|            ID           |           Autor            |              Titulo           |\n");
-                printf("---------------------------------------------------------------------------------------\n");
-
-        for (int i = 0; i < totalLibros; i++)
-        {
-            if (strcmp(listaLibros[i].categoria,categoriaBuscada) == 0)
-            {
-                NoExistenLibros = Verdadero;
-
-                printf("|            %d          :           %s                :              %s               |\n", 
-                    listaLibros[i].id,listaLibros[i].autor,listaLibros[i].titulo);
-                printf("---------------------------------------------------------------------------------------\n");
-            }   
-        }
-        if (!NoExistenLibros)
-        {
         printf("-----------------------------------------------------------------\n");
         printf("|            NO HAY LIBROS DISPONIBLES EN ESTA CATEGORIA         |\n");
         printf("-----------------------------------------------------------------\n");
-            
-        }
-        
-
-
-
+    }
 }
 
 // PRESTAMOS/DEVOLUCIONES
