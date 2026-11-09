@@ -1006,7 +1006,7 @@ void ConsultarDisponibilidad()
         printf("-----------------------------------------------------------------\n");
         printf("|           Autor            |              Titulo           |             Categoria             |          Disponibilidad           |\n");
         printf("-----------------------------------------------------------------\n");
-        printf("|      %s                :              %s               :         %s          :           %d copias        |\n", 
+        printf("|      %s                :              %s               :         %s          :           %d copias|\n", 
          listaLibros[indiceLibro].autor,listaLibros[indiceLibro].titulo,listaLibros[indiceLibro].categoria,copiasDisponibles);
         printf("-----------------------------------------------------------------\n");
     }
