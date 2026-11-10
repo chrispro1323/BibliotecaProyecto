@@ -1287,7 +1287,7 @@ void RegistrarDevolucion()
             {
                 if (listaLibros[i].id == QRIDLibro)
                 {
-                    listaLibros[i].disponible == Verdadero;
+                    listaLibros[i].disponible = Verdadero;
                     break;
                 }
             }
@@ -1311,10 +1311,52 @@ void RegistrarDevolucion()
 // REPORTES
 void LibrosDisponibles()
 {
+
     printf("-----------------------------------------------------------------\n");
     printf("|                            Reportes                           |\n");
     printf("|                             > Libros Disponibles              |\n");
     printf("-----------------------------------------------------------------\n");
+
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    printf("        Titulo             |          Autor                |             Categoria                         | Copias Disponibles\n");
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+            int YaProcesado = Falso;
+            int copiasDsiponibles = 0;
+
+        for (int k = 0; k < i; k++)
+        {
+            if (strcmp(listaLibros[i].titulo, listaLibros[k].titulo) == 0)
+            {
+                YaProcesado = Verdadero;
+                break;
+            }
+        }
+
+        if (!YaProcesado)
+        {
+            for (int j = 0; j < totalLibros; j++)
+            {
+                if (strcmp(listaLibros[i].titulo, listaLibros[j].titulo) == 0 && listaLibros[j].disponible == Verdadero)
+                {
+                    copiasDsiponibles++;
+                }
+            }
+
+
+            if (copiasDsiponibles > 0)
+            {
+                printf("%-25s       |      %-20s      | %-25s       | %d\n",
+                       listaLibros[i].titulo,
+                       listaLibros[i].autor,
+                       listaLibros[i].categoria,
+                       copiasDsiponibles);
+            }   
+        }
+    }
 }
 
 void LibrosPrestados()
