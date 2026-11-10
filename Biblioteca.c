@@ -35,9 +35,9 @@ typedef struct
 libro listaLibros[TAM];
 int totalLibros = 0;
 int contCategoria[11] = {0};
-int BuscarID;
-int IDRep, EncontrarLibro;
-char confirmarLIbro[50];
+//int BuscarID;
+//int IDRep, EncontrarLibro;
+//char confirmarLIbro[50];
 
 
 //Arreglos struct y variables para prestamos
@@ -322,7 +322,7 @@ void ReportesMenu()
 void RegistroUsu()
 {
     char UsuarioNuevo[50];
-    char comando[50];
+    char comando[150];
     int Matricula, matricularep;
     int x;
 
@@ -335,7 +335,7 @@ void RegistroUsu()
     do
     {
         printf("|>Ingresa tu nombre de usuario                                  |\n");
-        printf("|>Sin espacios y solo 8 caracteres TAMimo:                      |\n");
+        printf("|>Sin espacios y solo 8 caracteres maximo:                      |\n");
         scanf("%49s", UsuarioNuevo);
         if (strlen(UsuarioNuevo) > 8)
         {
@@ -410,7 +410,7 @@ void ModificarInf()
                 do
                 {
                     printf("|> Ingresa el nuevo usuario                                     |\n");
-                    printf("|>Sin espacios y solo 8 caracteres TAMimo:                      |\n");
+                    printf("|>Sin espacios y solo 8 caracteres maximo:                      |\n");
                     scanf("%49s", UsuarioNuevo);
                     if (strlen(UsuarioNuevo) > 8)
                     {
@@ -691,7 +691,7 @@ void RegistrarLibros()
 void ModificarLibros()
 {
     char nombreTitulo[50];
-    int Opbuscar, opModificar, opCategoria, IDLibro, indiceLIbro = -1;
+    int opModificar, opCategoria, indiceLIbro = -1;
     char nuevoTitulo[50];
     char nuevoAutor[50];
     char nuevaCategoria[50];
@@ -851,10 +851,9 @@ void ModificarLibros()
 void EliminarLibros()
 {
 
-    int IDLibro, libroExiste = Falso;
+    int libroExiste = Falso;
     char tituloLibro[50];
     char confirmarLIbro[40];
-    int indiceENcontrado = -1;
 
     printf("-----------------------------------------------------------------\n");
     printf("|                    Administracion de Libros                   |\n");
@@ -877,7 +876,6 @@ void EliminarLibros()
         if (strcmp(listaLibros[i].titulo, tituloLibro) == 0)
         {
             libroExiste = Verdadero;
-            indiceENcontrado = i;
             printf("-----------------------------------------------------------------\n");
             printf("|Libro encontrado                                               |\n");
             printf("-----------------------------------------------------------------\n");
@@ -1151,7 +1149,7 @@ void ClasificarCategoria()
 void RegistrarPrestamo()
 {
     int QRMatriculaUsuario,QRIDLibro,matriculaEncontradaUsuario = Falso,IDEncontradoLibro = Falso,copiaDisponible = Falso;
-    int indiceUsuario,indiceLibro;
+    int indiceUsuario;
 
     printf("-----------------------------------------------------------------\n");
     printf("|                     Prestamos                                 |\n");
@@ -1228,7 +1226,7 @@ void RegistrarPrestamo()
 
 void RegistrarDevolucion()
 {
-    int QRMatriculaUsuario,QRIDLibro,IndicematriculaUsuario,indiceDatosUsuario;
+    int QRMatriculaUsuario,QRIDLibro,indiceDatosUsuario;
     int existePrestamo = Falso,cantidadPrestamos = 0,libroDevuelto = Falso;
     printf("-----------------------------------------------------------------\n");
     printf("|                     Prestamos/Devoluciones                    |\n");
@@ -1286,7 +1284,7 @@ void RegistrarDevolucion()
             {
                 if (listaLibros[i].id == QRIDLibro)
                 {
-                    listaLibros[i].disponible == Verdadero;
+                    listaLibros[i].disponible = Verdadero;
                     break;
                 }
             }
