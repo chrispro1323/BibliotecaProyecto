@@ -35,25 +35,21 @@ typedef struct
 libro listaLibros[TAM];
 int totalLibros = 0;
 int contCategoria[11] = {0};
-//int BuscarID;
-//int IDRep, EncontrarLibro;
-//char confirmarLIbro[50];
+// int BuscarID;
+// int IDRep, EncontrarLibro;
+// char confirmarLIbro[50];
 
-
-//Arreglos struct y variables para prestamos
-typedef struct {
+// Arreglos struct y variables para prestamos
+typedef struct
+{
     int idPrestamo;
     int matriculaUsuario;
-    int idLibro;          
-    int devuelto;        
+    int idLibro;
+    int devuelto;
 } prestamo;
 
 prestamo listaPrestamos[TAM];
 int totalPrestamos = 0;
-
-
-
-
 
 // Menús Principales
 void UsuariosMenu();
@@ -370,8 +366,8 @@ void RegistroUsu()
     listaUsuarios[totalUsuarios].prestamosActivos = 0;
     totalUsuarios++;
 
-   sprintf(comando, "qrencode -o ..\\qrcodes\\usuario_%d.png \"%d\"", Matricula, Matricula);
-system(comando);
+    sprintf(comando, "qrencode -o ..\\qrcodes\\usuario_%d.png \"USUARIO: %s - MATRICULA: %d\"", Matricula, UsuarioNuevo, Matricula);
+    system(comando);
 
     printf("-----------------------------------------------------------------\n");
     printf("|Usuario creado con exito.                                      |\n");
@@ -572,7 +568,7 @@ void RegistrarLibros()
     char TituloLibro[100], AutorLibro[100], CategoriaLibro[40];
     int opCategoria, CantCopias, LibrosID;
     int x;
-    char comando[150];
+    char comando[500];
 
     printf("-----------------------------------------------------------------\n");
     printf("|                    Administracion de Libros                   |\n");
@@ -667,7 +663,6 @@ void RegistrarLibros()
     for (x = 0; x < CantCopias; x++)
     {
 
-
         contCategoria[opCategoria]++;
         LibrosID = (opCategoria * 1000) + contCategoria[opCategoria];
 
@@ -677,9 +672,9 @@ void RegistrarLibros()
         strcpy(listaLibros[totalLibros].categoria, CategoriaLibro);
         listaLibros[totalLibros].disponible = Verdadero;
         listaLibros[totalLibros].numeroPrestamosHistoricos = 0;
-        sprintf(comando, "qrencode -o qrcodes/libro_%d.png \"%d\"", LibrosID, LibrosID);
+        sprintf(comando, "qrencode -o ..\\qrcodes\\libro_%d.png \"ID: %d - TITULO: %s - AUTOR: %s - CATEGORIA: %s\"", LibrosID, LibrosID, TituloLibro, AutorLibro, CategoriaLibro);
         system(comando);
-        
+
         printf("|                %d                |             %d              |\n", x + 1, LibrosID);
         totalLibros++;
     }
@@ -1078,7 +1073,7 @@ void ClasificarCategoria()
     printf("|                    Administracion de Libros                   |\n");
     printf("|                                  > Clasificar por Categoria   |\n");
     printf("-----------------------------------------------------------------\n");
-    
+
     if (totalLibros == 0)
     {
         printf("|            NO SE ENCUENTRAN LIBROS DISPONIBLES              |\n");
@@ -1109,14 +1104,30 @@ void ClasificarCategoria()
 
     switch (opCategoria)
     {
-    case 1: strcpy(categoriaBuscada, "Medicina y Salud"); break;
-    case 2: strcpy(categoriaBuscada, "Derecho y Ciencias Sociales"); break;
-    case 3: strcpy(categoriaBuscada, "Contaduria y Administracion"); break;
-    case 4: strcpy(categoriaBuscada, "Ingenieria y Sistemas"); break;
-    case 5: strcpy(categoriaBuscada, "Humanidades y Pedagogia"); break;
-    case 6: strcpy(categoriaBuscada, "Ciencias Agropecuarias"); break;
-    case 7: strcpy(categoriaBuscada, "Literatura y Ficcion"); break;
-    case 8: strcpy(categoriaBuscada, "Historia, Arte y Chiapas"); break;
+    case 1:
+        strcpy(categoriaBuscada, "Medicina y Salud");
+        break;
+    case 2:
+        strcpy(categoriaBuscada, "Derecho y Ciencias Sociales");
+        break;
+    case 3:
+        strcpy(categoriaBuscada, "Contaduria y Administracion");
+        break;
+    case 4:
+        strcpy(categoriaBuscada, "Ingenieria y Sistemas");
+        break;
+    case 5:
+        strcpy(categoriaBuscada, "Humanidades y Pedagogia");
+        break;
+    case 6:
+        strcpy(categoriaBuscada, "Ciencias Agropecuarias");
+        break;
+    case 7:
+        strcpy(categoriaBuscada, "Literatura y Ficcion");
+        break;
+    case 8:
+        strcpy(categoriaBuscada, "Historia, Arte y Chiapas");
+        break;
     }
 
     printf("-----------------------------------------------------------------\n");
@@ -1148,7 +1159,7 @@ void ClasificarCategoria()
 // PRESTAMOS/DEVOLUCIONES
 void RegistrarPrestamo()
 {
-    int QRMatriculaUsuario,QRIDLibro,matriculaEncontradaUsuario = Falso,IDEncontradoLibro = Falso,copiaDisponible = Falso;
+    int QRMatriculaUsuario, QRIDLibro, matriculaEncontradaUsuario = Falso, IDEncontradoLibro = Falso, copiaDisponible = Falso;
     int indiceUsuario;
 
     printf("-----------------------------------------------------------------\n");
@@ -1156,28 +1167,28 @@ void RegistrarPrestamo()
     printf("|                                > Registrar Prestamo           |\n");
     printf("-----------------------------------------------------------------\n");
     printf("Escanea el codigo QR del usuario....\n");
-    scanf("%d",&QRMatriculaUsuario);
+    scanf("%d", &QRMatriculaUsuario);
 
     for (int i = 0; i < totalUsuarios; i++)
     {
         if (listaUsuarios[i].matricula == QRMatriculaUsuario)
         {
-            matriculaEncontradaUsuario = Verdadero;          
+            matriculaEncontradaUsuario = Verdadero;
             indiceUsuario = i;
             break;
         }
     }
     if (!matriculaEncontradaUsuario)
     {
-    printf("-----------------------------------------------------------------\n");
-    printf("|                  No se encontro la matricula                  |\n");
-    printf("-----------------------------------------------------------------\n");
-    return;
+        printf("-----------------------------------------------------------------\n");
+        printf("|                  No se encontro la matricula                  |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
     }
-    
+
     printf("Escanea el QR del libro que desee....\n");
-    scanf("%d",&QRIDLibro);
-    for (int i = 0; i < totalLibros;i++)
+    scanf("%d", &QRIDLibro);
+    for (int i = 0; i < totalLibros; i++)
     {
         if (listaLibros[i].id == QRIDLibro)
         {
@@ -1185,91 +1196,85 @@ void RegistrarPrestamo()
 
             if (listaLibros[i].disponible == Verdadero)
             {
-             copiaDisponible = Verdadero;
-             listaPrestamos[totalPrestamos].idPrestamo = totalPrestamos + 1;
-             listaPrestamos[totalPrestamos].matriculaUsuario = QRMatriculaUsuario;
-             listaPrestamos[totalPrestamos].idLibro = QRIDLibro;
-             listaPrestamos[totalPrestamos].devuelto = Falso;
-             totalPrestamos++;
+                copiaDisponible = Verdadero;
+                listaPrestamos[totalPrestamos].idPrestamo = totalPrestamos + 1;
+                listaPrestamos[totalPrestamos].matriculaUsuario = QRMatriculaUsuario;
+                listaPrestamos[totalPrestamos].idLibro = QRIDLibro;
+                listaPrestamos[totalPrestamos].devuelto = Falso;
+                totalPrestamos++;
 
-             listaUsuarios[indiceUsuario].prestamosActivos++; 
+                listaUsuarios[indiceUsuario].prestamosActivos++;
 
-             listaLibros[i].disponible = Falso;
-             listaLibros[i].numeroPrestamosHistoricos++;
- 
-        
-             printf("-----------------------------------------------------------------\n");
-             printf("|                  DISFRUTE EL LIBRO                             |\n");
-             printf("-----------------------------------------------------------------\n"); 
-             printf("recuerde devolver el libro\n");
-            
-            return;
+                listaLibros[i].disponible = Falso;
+                listaLibros[i].numeroPrestamosHistoricos++;
+
+                printf("-----------------------------------------------------------------\n");
+                printf("|                  DISFRUTE EL LIBRO                             |\n");
+                printf("-----------------------------------------------------------------\n");
+                printf("recuerde devolver el libro\n");
+
+                return;
             }
         }
-        
     }
 
     if (!IDEncontradoLibro)
     {
-    printf("-----------------------------------------------------------------\n");
-    printf("|              No se encontro ningun libro con ese ID              |\n");
-    printf("-----------------------------------------------------------------\n");  
-    return;   
+        printf("-----------------------------------------------------------------\n");
+        printf("|              No se encontro ningun libro con ese ID              |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
     }
     if (!copiaDisponible)
     {
-    printf("-----------------------------------------------------------------\n");
-    printf("|              No hay copias Disponibles                        |\n");
-    printf("-----------------------------------------------------------------\n");     
+        printf("-----------------------------------------------------------------\n");
+        printf("|              No hay copias Disponibles                        |\n");
+        printf("-----------------------------------------------------------------\n");
     }
 }
 
 void RegistrarDevolucion()
 {
-    int QRMatriculaUsuario,QRIDLibro,indiceDatosUsuario;
-    int existePrestamo = Falso,cantidadPrestamos = 0,libroDevuelto = Falso;
+    int QRMatriculaUsuario, QRIDLibro, indiceDatosUsuario;
+    int existePrestamo = Falso, cantidadPrestamos = 0, libroDevuelto = Falso;
     printf("-----------------------------------------------------------------\n");
     printf("|                     Prestamos/Devoluciones                    |\n");
     printf("|                               > Registrar Devolucion          |\n");
     printf("-----------------------------------------------------------------\n");
     printf("Escanea el codigo QR del usuario...\n");
-    scanf("%d",&QRMatriculaUsuario);
+    scanf("%d", &QRMatriculaUsuario);
 
     for (int i = 0; i < totalPrestamos; i++)
     {
-        if (listaPrestamos[i].matriculaUsuario == QRMatriculaUsuario &&  listaPrestamos[i].devuelto == Falso)
-        {   
+        if (listaPrestamos[i].matriculaUsuario == QRMatriculaUsuario && listaPrestamos[i].devuelto == Falso)
+        {
             cantidadPrestamos++;
             existePrestamo = Verdadero;
-            
         }
-        
-        
     }
     if (!existePrestamo)
     {
-    printf("-----------------------------------------------------------------\n");
-    printf("|                  Este usuario no tiene prestamos                 |\n");
-    printf("-----------------------------------------------------------------\n");        
+        printf("-----------------------------------------------------------------\n");
+        printf("|                  Este usuario no tiene prestamos                 |\n");
+        printf("-----------------------------------------------------------------\n");
         return;
     }
 
     for (int i = 0; i < totalUsuarios; i++)
     {
-     if (listaUsuarios[i].matricula == QRMatriculaUsuario){
-        indiceDatosUsuario = i;
-        break;
-     }   
+        if (listaUsuarios[i].matricula == QRMatriculaUsuario)
+        {
+            indiceDatosUsuario = i;
+            break;
+        }
     }
 
     printf("-----------------------------------------------------\n");
     printf("        Usuario         |       Prestamos           |\n");
     printf("          %s            :            %d              |\n",
-    listaUsuarios[indiceDatosUsuario].nombre, cantidadPrestamos);
+           listaUsuarios[indiceDatosUsuario].nombre, cantidadPrestamos);
     printf("Escanea el codigo QR del libro a devolver...\n");
-    scanf("%d",&QRIDLibro);
-
-    
+    scanf("%d", &QRIDLibro);
 
     for (int i = 0; i < totalPrestamos; i++)
     {
@@ -1288,21 +1293,20 @@ void RegistrarDevolucion()
                     break;
                 }
             }
-            
+
             printf("-----------------------------------------------------------------\n");
             printf("|              DEVOLUCION REGISTRADA CON EXITO                  |\n");
             printf("-----------------------------------------------------------------\n");
             return;
         }
-    }  
+    }
 
     if (!libroDevuelto)
     {
         printf("-----------------------------------------------------------------\n");
         printf("|    Este usuario no tiene prestado este libro actualmente       |\n");
-        printf("-----------------------------------------------------------------\n");      
+        printf("-----------------------------------------------------------------\n");
     }
-    
 }
 
 // REPORTES
