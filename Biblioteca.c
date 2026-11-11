@@ -685,10 +685,18 @@ void RegistrarLibros()
 
 void ModificarLibros()
 {
+<<<<<<< HEAD
     char nombreTitulo[50];
     int opModificar, opCategoria, indiceLIbro = -1;
     char nuevoTitulo[50];
     char nuevoAutor[50];
+=======
+
+    int Opbuscar, opModificar, opCategoria, IDLibro, indiceLIbro = -1;
+    char nombreTitulo[100];
+    char nuevoTitulo[100];
+    char nuevoAutor[100];
+>>>>>>> 7bda57d56e991fb82d6eda41d20baa47a108a1ba
     char nuevaCategoria[50];
     int modificado = Falso;
     if (totalLibros == 0)
@@ -706,7 +714,7 @@ void ModificarLibros()
     printf("|Para poder modificar un libro buscalo mediante su titulo       |\n");
     printf("-----------------------------------------------------------------\n");
     printf("Ingresa el titulo: ");
-    scanf("%99[^\n]", nombreTitulo);
+    scanf(" %99[^\n]", nombreTitulo);
     printf("\n");
 
     for (int i = 0; i < totalLibros; i++)
@@ -741,7 +749,7 @@ void ModificarLibros()
         {
         case 1:
             printf("Ingresa el nuevo titulo\n");
-            scanf("%99[^\n]", nuevoTitulo);
+            scanf(" %99[^\n]", nuevoTitulo);
 
             for (int i = 0; i < totalLibros; i++)
             {
@@ -756,10 +764,10 @@ void ModificarLibros()
                 strcpy(nombreTitulo, nuevoTitulo);
             }
             printf("Titulo actualizado con exito\n");
-            return;
+            break;
         case 2:
             printf("Ingresa el nombre del autor\n");
-            scanf("%99[^\n]", nuevoAutor);
+            scanf(" %99[^\n]", nuevoAutor);
             for (int i = 0; i < totalLibros; i++)
             {
                 if (strcmp(listaLibros[i].titulo, nombreTitulo) == 0)
@@ -768,7 +776,7 @@ void ModificarLibros()
                 }
             }
             printf("Autor actualizado con exito\n");
-            return;
+            break;
 
         case 3:
             do
@@ -828,7 +836,7 @@ void ModificarLibros()
                 }
             }
             printf("La categoria actualizada en todas las copias\n");
-            return;
+            break;
         case 4:
             printf("Saliendo...\n");
 
@@ -863,7 +871,7 @@ void EliminarLibros()
         return;
     }
     printf("Ingresa su titulo: ");
-    scanf("%s", tituloLibro);
+    scanf(" %49[^\n]", tituloLibro);
     printf("\n");
 
     for (int i = 0; i < totalLibros; i++)
@@ -983,7 +991,7 @@ void BuscarLibros()
         break;
     case 2:
         printf("Ingresa el titulo del libro\n");
-        scanf("%s", libroTitulo);
+        scanf(" %49[^\n]", libroTitulo);
 
         for (int i = 0; i < totalLibros; i++)
         {
@@ -1030,7 +1038,7 @@ void ConsultarDisponibilidad()
         return;
     }
     printf("Ingresa el titulo del libro para consultar su disponibilidad: \n");
-    scanf("%s", tituloLibro);
+    scanf(" %49[^\n]", tituloLibro);
 
     for (int i = 0; i < totalLibros; i++)
     {
