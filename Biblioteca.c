@@ -1317,7 +1317,6 @@ void LibrosDisponibles()
     printf("|                            Reportes                           |\n");
     printf("|                             > Libros Disponibles              |\n");
     printf("-----------------------------------------------------------------\n");
-<<<<<<< HEAD
     printf("--------------------------------------------------------------------------------------------------------------------\n");
     printf("        Titulo             |          Autor                |             Categoria                         | Copias Disponibles |\n");
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
@@ -1326,18 +1325,6 @@ void LibrosDisponibles()
     {
         int YaProcesado = Falso;
         int copiasDsiponibles = 0;
-=======
-
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
-    printf("        Titulo             |          Autor                |             Categoria                         | Copias Disponibles\n");
-    printf("----------------------------------------------------------------------------------------------------------------------------\n");
-
-
-    for (int i = 0; i < totalLibros; i++)
-    {
-            int YaProcesado = Falso;
-            int copiasDsiponibles = 0;
->>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
 
         for (int k = 0; k < i; k++)
         {
@@ -1357,11 +1344,6 @@ void LibrosDisponibles()
                     copiasDsiponibles++;
                 }
             }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
             if (copiasDsiponibles > 0)
             {
                 printf("%-25s       |      %-20s      | %-25s       | %d\n",
@@ -1369,11 +1351,8 @@ void LibrosDisponibles()
                        listaLibros[i].autor,
                        listaLibros[i].categoria,
                        copiasDsiponibles);
-<<<<<<< HEAD
             }
-=======
-            }   
->>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
+
         }
     }
 }
