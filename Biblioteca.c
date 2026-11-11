@@ -1317,6 +1317,7 @@ void LibrosDisponibles()
     printf("|                            Reportes                           |\n");
     printf("|                             > Libros Disponibles              |\n");
     printf("-----------------------------------------------------------------\n");
+<<<<<<< HEAD
     printf("--------------------------------------------------------------------------------------------------------------------\n");
     printf("        Titulo             |          Autor                |             Categoria                         | Copias Disponibles |\n");
     printf("----------------------------------------------------------------------------------------------------------------------------\n");
@@ -1325,6 +1326,18 @@ void LibrosDisponibles()
     {
         int YaProcesado = Falso;
         int copiasDsiponibles = 0;
+=======
+
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+    printf("        Titulo             |          Autor                |             Categoria                         | Copias Disponibles\n");
+    printf("----------------------------------------------------------------------------------------------------------------------------\n");
+
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+            int YaProcesado = Falso;
+            int copiasDsiponibles = 0;
+>>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
 
         for (int k = 0; k < i; k++)
         {
@@ -1345,6 +1358,10 @@ void LibrosDisponibles()
                 }
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
             if (copiasDsiponibles > 0)
             {
                 printf("%-25s       |      %-20s      | %-25s       | %d\n",
@@ -1352,7 +1369,11 @@ void LibrosDisponibles()
                        listaLibros[i].autor,
                        listaLibros[i].categoria,
                        copiasDsiponibles);
+<<<<<<< HEAD
             }
+=======
+            }   
+>>>>>>> a5485603fbaa9c7687ef09145f0b1d81995fb73d
         }
     }
 }
@@ -1488,24 +1509,123 @@ void HistorialPrestamos()
 
 void HistorialDevoluciones()
 {
+    int hayDevoluciones = Falso;
     printf("-----------------------------------------------------------------\n");
     printf("|                            Reportes                           |\n");
     printf("|                          > Historial de Devoluciones          |\n");
+    printf("------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------------------\n");
+    printf("%-15s | %-30s | %-15s\n", "Usuario", "Libro", "ID del Libro");    printf("----------------------------------------------------------------------------------------------------\n");
+  
+    for (int i = 0; i < totalPrestamos; i++)
+    {
+        if (listaPrestamos[i].devuelto == Verdadero)
+        {
+            hayDevoluciones = Verdadero;
+
+            for (int j = 0; j < totalUsuarios; j++)
+            {
+                if (listaUsuarios[j].matricula == listaPrestamos[i].matriculaUsuario)
+                {
+                    for (int y = 0; y < totalLibros; y++)
+                    {
+                        if (listaLibros[y].id == listaPrestamos[i].idLibro)
+                        {
+                            printf("|   %s      :      %s        :        %d          |\n",
+                            listaUsuarios[j].nombre,listaLibros[y].titulo,listaLibros[y].id);
+                        break;
+                        }
+                    }
+                break; 
+                }
+                
+            } 
+        }   
+    }
+    if (!hayDevoluciones)
+    {
     printf("-----------------------------------------------------------------\n");
+    printf("|                     No hay devoluciones                         |\n");
+    printf("------------------------------------------------------------------\n");  
+    }
 }
 
 void LibrosMayorPrestamos()
 {
+    int libroMayor[TAM];
+    int indiceLIbroMayor[TAM];
+    int SumarIndice = 0;
+    libroMayor[0] = listaLibros[0].numeroPrestamosHistoricos;
+
     printf("-----------------------------------------------------------------\n");
     printf("|                            Reportes                           |\n");
     printf("|                     > Libros con Mayor Numero de Prestamos    |\n");
+    printf("-----------------------------------------------------------------\n");
+
+    if (totalLibros == 0)
+    {
+        printf("|              NO HAY LIBROS REGISTRADOS EN EL SISTEMA          |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
+    int maxPrestamos = 0;
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+        if (listaLibros[i].numeroPrestamosHistoricos > maxPrestamos)
+        {
+            maxPrestamos = listaLibros[i].numeroPrestamosHistoricos;
+        }
+    }
+    if (maxPrestamos == 0)
+    {
+        printf("|             AUN NO SE HA REALIZADO NINGUN PRESTAMO            |\n");
+        printf("-----------------------------------------------------------------\n");
+        return;
+    }
+    printf("-----------------------------------------------------------------\n");
+    printf("|       Libro                     |           Prestamos         |\n");
+    printf("-----------------------------------------------------------------\n");
+
+    for (int i = 0; i < totalLibros; i++)
+    {
+        if (listaLibros[i].numeroPrestamosHistoricos == maxPrestamos)
+        {
+            printf("| %-31s | %-27d |\n", listaLibros[i].titulo, listaLibros[i].numeroPrestamosHistoricos);
+        }
+    }
     printf("-----------------------------------------------------------------\n");
 }
 
 void UsuariosPrestamosActivos()
 {
+    int UsuariosPrestamos = Falso;
     printf("-----------------------------------------------------------------\n");
     printf("|                            Reportes                           |\n");
     printf("|                         > Usuarios con Prestamos Activos      |\n");
     printf("-----------------------------------------------------------------\n");
+    printf("| %-15s | %-12s | %-24s |\n", "Nombre", "Matricula", "Prestamos Activos");
+    printf("-----------------------------------------------------------------\n");
+    for (int i = 0; i < totalUsuarios; i++)
+    {
+        if (listaUsuarios[i].prestamosActivos > 0)
+        {
+            UsuariosPrestamos = Verdadero;
+            printf("| %-15s | %-12d | %-24d |\n",
+            listaUsuarios[i].nombre,listaUsuarios[i].matricula,listaUsuarios[i].prestamosActivos);
+        }
+    }
+    if (!UsuariosPrestamos)
+    {
+    printf("|    NO HAY USUARIOS CON PRESTAMOS ACTIVOS EN ESTE MOMENTO      |\n");
+        printf("-----------------------------------------------------------------\n");
+    }
+    else
+    {
+        printf("-----------------------------------------------------------------\n");
+    }
+    
+
+
+    
 }
